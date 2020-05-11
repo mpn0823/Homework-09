@@ -5,6 +5,7 @@ function Intern(name, id, email, school) {
     this.school = school;
 }
 
+Intern.prototype = new Employee();
 Intern.prototype.getRole = function() { return "Intern" };
 Intern.prototype.getSchool = function() { return this.school };
 

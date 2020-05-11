@@ -102,18 +102,20 @@ async function getManagerInfo() {
 }
 
 (async() => {
+    let employees = [];
     while (await addEmployee()) {
-        await getCommonInfo();
+        const { name, id, email } = await getCommonInfo();
         switch (await getRole()) {
             case "Manager":
-                await getManagerInfo();
+                employees.push(new Manager(name, id, email, await getManagerInfo()));
                 break;
             case "Engineer":
-                await getEngineerInfo();
+                employees.push(new Engineer(name, id, email, await getEngineerInfo()));
                 break;
             case "Intern":
-                await getInternInfo();
+                employees.push(new Intern(name, id, email, await getInternInfo()));
                 break;
         }
     }
+    console.log(render(employees));
 })();
