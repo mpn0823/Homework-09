@@ -1,6 +1,6 @@
 const Employee = require("./Employee");
 
-function Intern(name = null, id = null, email = null, school = null) {
+function Intern(name, id, email, school) {
     Employee.call(this, name, id, email);
     this.school = school;
 }

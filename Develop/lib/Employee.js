@@ -1,6 +1,6 @@
 "use strict";
 
-function Employee(name = null, id = null, email = null) {
+function Employee(name, id, email) {
     this.name = name;
     this.id = id;
     this.email = email;

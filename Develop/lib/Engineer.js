@@ -1,6 +1,6 @@
 const Employee = require("./Employee");
 
-function Engineer(name = null, id = null, email = null, github = null) {
+function Engineer(name, id, email, github) {
     Employee.call(this, name, id, email);
     this.github = github;
 }
