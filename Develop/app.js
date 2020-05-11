@@ -117,5 +117,5 @@ async function getManagerInfo() {
                 break;
         }
     }
-    console.log(render(employees));
+    fs.writeFile("index.html", render(employees), "utf8", err => { if (err) console.log(err) });
 })();
