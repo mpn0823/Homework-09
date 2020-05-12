@@ -6,6 +6,7 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
+const util = require("util");
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
@@ -101,6 +102,8 @@ async function getManagerInfo() {
     return response.officeNumber;
 }
 
+// This is the main loop. As long as the user keeps choosing to add employees, prompt
+// The user for employee info, create the corresponding object, and append it to employees.
 (async() => {
     let employees = [];
     while (await addEmployee()) {
@@ -117,5 +120,14 @@ async function getManagerInfo() {
                 break;
         }
     }
-    fs.writeFile("index.html", render(employees), "utf8", err => { if (err) console.log(err) });
+
+    // Check if directory exists
+    fs.access(OUTPUT_DIR, err => {
+        // If not then create directory
+        if (err && err.code === "ENOENT") fs.mkdir(OUTPUT_DIR, err => { if (err) console.log(err) });
+        // If some other error then log to console
+        else if (err) console.log(err);
+        // Write output to file
+        fs.writeFile(outputPath, render(employees), err => { if (err) console.log(err) });
+    });
 })();
