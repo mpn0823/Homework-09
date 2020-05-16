@@ -39,12 +39,12 @@ async function getCommonInfo() {
     return await inquirer.prompt([{
         message: "Enter employee's name",
         name: "name",
+        // validate to exclude empty strings
+        validate: id => { return id != "" },
     }, {
         message: "ID number",
         name: "id",
-        validate: id => {
-            return /\d/.test(id);
-        }
+        validate: id => { return /\d/.test(id) },
     }, {
         message: "email address",
         name: "email",
@@ -63,7 +63,7 @@ async function getEngineerInfo() {
         validate: github => {
             // Ditto
             return /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i.test(github);
-        }
+        },
     });
     return response.github;
 }
@@ -73,6 +73,8 @@ async function getInternInfo() {
     const response = await inquirer.prompt({
         message: "school name.",
         name: "school",
+        // validate to exclude empty strings
+        validate: school => { return school !== "" },
     });
     return response.school;
 }
@@ -82,9 +84,7 @@ async function getManagerInfo() {
     const response = await inquirer.prompt({
         message: "office number",
         name: "officeNumber",
-        validate: officeNumber => {
-            return /\d/.test(officeNumber);
-        },
+        validate: officeNumber => { return /\d/.test(officeNumber) },
     });
     return response.officeNumber;
 }
