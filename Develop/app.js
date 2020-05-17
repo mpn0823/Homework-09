@@ -40,7 +40,7 @@ async function getCommonInfo() {
         message: "Enter employee's name",
         name: "name",
         // validate to exclude empty strings
-        validate: id => { return id != "" },
+        validate: id => { return id !== "" },
     }, {
         message: "ID number",
         name: "id",
